@@ -36,8 +36,8 @@ function resizeGrid() {
 	);
 }
 
+// Map urls into array of html elements
 function getPix() {
-	// map urls into array of html elements
 	const pix = urls.map((url, i) => {
 		const pic = document.createElement("div");
 		pic.classList.add("pic");
@@ -45,24 +45,25 @@ function getPix() {
 		pic.innerHTML = `<img src="${url}" draggable="false"/>`;
 		return pic;
 	});
-
-	// rearrange pix array to match order saved in localStorage
-	if (localStorage.length > 0) {
-		const picOrder = localStorage.getItem("indices").split(",");
-		const orderedPix = [];
-		picOrder.forEach(el => {
-			const index = parseInt(el);
-			if (pix[index]) orderedPix.push(pix[index]);
-			// .map not used in case `pix` is shorter than `picOrder` (after deleting some urls)
-		});
-		// add new pics if any
-		if (pix.length > orderedPix.length)
-			orderedPix.push(...pix.splice(orderedPix.length));
-
-		return orderedPix;
-	}
-
 	return pix;
+}
+
+// Rearrange pix array to match order saved in localStorage
+function orderPix(pix) {
+	const picOrder = localStorage.getItem("indices").split(",");
+	const orderedPix = [];
+
+	// .map not used in case `pix` is shorter than `picOrder` (after deleting some urls)
+	picOrder.forEach(el => {
+		const index = parseInt(el);
+		if (pix[index]) orderedPix.push(pix[index]);
+	});
+
+	// add new pics to orderedPics
+	if (pix.length > orderedPix.length)
+		orderedPix.push(...pix.splice(orderedPix.length));
+
+	return orderedPix;
 }
 
 function renderPix(pix) {
@@ -112,6 +113,7 @@ document.addEventListener("mouseup", handleMouseUp);
 
 resizeGrid();
 pix = getPix();
+if (localStorage.length > 0) pix = orderPix(pix);
 renderPix(pix);
 
 function movePic(from, to) {
