@@ -1,24 +1,22 @@
 const urls = [
-	"https://images.pexels.com/photos/669578/pexels-photo-669578.jpeg?auto=compress&cs=tinysrgb&dpr=3&h=750&w=1260",
-	"https://images.pexels.com/photos/28061/pexels-photo.jpg?auto=compress&cs=tinysrgb&dpr=3&h=750&w=1260",
+	"https://images.unsplash.com/photo-1574680096145-d05b474e2155?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1950&q=80",
+	"https://images.unsplash.com/photo-1574680178050-55c6a6a96e0a?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1950&q=80",
+	"https://images.unsplash.com/photo-1536922246289-88c42f957773?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1980&q=80",
 	"https://images.pexels.com/photos/196640/pexels-photo-196640.jpeg?auto=compress&cs=tinysrgb&dpr=3&h=750&w=1260",
 	"https://images.pexels.com/photos/260409/pexels-photo-260409.jpeg?auto=compress&cs=tinysrgb&dpr=3&h=750&w=1260",
-	"https://images.pexels.com/photos/416747/pexels-photo-416747.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260",
-
-	"https://cdn.pixabay.com/photo/2014/11/17/13/17/crossfit-534615_960_720.jpg",
-	"https://cdn.pixabay.com/photo/2015/01/09/11/22/fitness-594143_960_720.jpg",
-	"https://cdn.pixabay.com/photo/2016/04/07/01/03/yoga-1313115_960_720.jpg",
-	"https://cdn.pixabay.com/photo/2017/01/09/11/30/dumbbell-1966247_960_720.jpg",
-	"https://cdn.pixabay.com/photo/2015/11/16/01/21/kettlebell-1045067_960_720.jpg",
-	"https://cdn.pixabay.com/photo/2016/06/12/20/15/sports-1452965_960_720.jpg",
-	"https://cdn.pixabay.com/photo/2016/12/29/03/17/photo-shoot-on-the-floor-1937659_960_720.jpg",
-
+	"https://images.pexels.com/photos/669578/pexels-photo-669578.jpeg?auto=compress&cs=tinysrgb&dpr=3&h=750&w=1260",
 	"https://images.unsplash.com/photo-1534438327276-14e5300c3a48?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1950&q=80",
-	"https://images.unsplash.com/photo-1536922246289-88c42f957773?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1980&q=80",
+	"https://cdn.pixabay.com/photo/2015/11/16/01/21/kettlebell-1045067_960_720.jpg",
+	"https://cdn.pixabay.com/photo/2015/01/09/11/22/fitness-594143_960_720.jpg",
+	"https://cdn.pixabay.com/photo/2016/06/12/20/15/sports-1452965_960_720.jpg",
+	"https://cdn.pixabay.com/photo/2017/01/09/11/30/dumbbell-1966247_960_720.jpg",
+	"https://cdn.pixabay.com/photo/2016/12/29/03/17/photo-shoot-on-the-floor-1937659_960_720.jpg",
+	"https://images.pexels.com/photos/416747/pexels-photo-416747.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260",
+	"https://images.pexels.com/photos/28061/pexels-photo.jpg?auto=compress&cs=tinysrgb&dpr=3&h=750&w=1260",
+	"https://cdn.pixabay.com/photo/2016/04/07/01/03/yoga-1313115_960_720.jpg",
+	"https://cdn.pixabay.com/photo/2014/11/17/13/17/crossfit-534615_960_720.jpg",
 	"https://images.unsplash.com/photo-1537289150563-b7f10eee353b?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80",
-	"https://images.unsplash.com/photo-1574680178050-55c6a6a96e0a?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1950&q=80",
-	"https://images.unsplash.com/photo-1517130038641-a774d04afb3c?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1950&q=80",
-	"https://images.unsplash.com/photo-1574680096145-d05b474e2155?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1950&q=80"
+	"https://images.unsplash.com/photo-1517130038641-a774d04afb3c?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1950&q=80"
 ];
 
 const slider = document.querySelector(".slider");
@@ -71,6 +69,12 @@ function renderPix(pix) {
 	pix.forEach(pic => app.appendChild(pic));
 }
 
+function getUrls() {
+	const urls = pix.map(pic => pic.querySelector("img").src);
+	return JSON.stringify(urls);
+}
+
+// get current order of pics
 function getIndices(pix) {
 	return pix.map(pic => pic.dataset.index);
 }
