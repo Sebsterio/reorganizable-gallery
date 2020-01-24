@@ -27,6 +27,7 @@ let pix;
 let dragged;
 let dragging = false;
 
+// Change :root variable for grid-template-columns
 function resizeGrid() {
 	document.documentElement.style.setProperty(
 		"--grid-side",
@@ -57,29 +58,25 @@ function orderPix(pix) {
 		if (pix[index]) orderedPix.push(pix[index]);
 	});
 
-	// add new pics to orderedPics
+	// Add new pics to orderedPics
 	if (pix.length > orderedPix.length)
 		orderedPix.push(...pix.splice(orderedPix.length));
 
 	return orderedPix;
 }
 
+// load pix into .app
 function renderPix(pix) {
 	app.innerHTML = "";
 	pix.forEach(pic => app.appendChild(pic));
 }
 
-function getUrls() {
-	const urls = pix.map(pic => pic.querySelector("img").src);
-	return JSON.stringify(urls);
-}
+// ------------ Drag ---------------
 
-// get current order of pics
+// Get current order of pics
 function getIndices(pix) {
 	return pix.map(pic => pic.dataset.index);
 }
-
-// ------------ Drag ---------------
 
 function handleMouseDown(e) {
 	dragged = e.target.closest(".pic");
@@ -93,7 +90,7 @@ function handleMouseMove(e) {
 	const target = e.target.closest(".pic");
 	if (!target || target === dragged) return;
 
-	// move dragged pic within array
+	// Move dragged pic within pix array
 	const from = pix.indexOf(dragged);
 	const to = pix.indexOf(target);
 	from >= to
@@ -110,32 +107,19 @@ function handleMouseUp(e) {
 
 // ---------------------------------
 
+// Export urls in current order (console only)
+function getUrls() {
+	const urls = pix.map(pic => pic.querySelector("img").src);
+	return JSON.stringify(urls);
+}
+
 slider.addEventListener("input", resizeGrid);
 document.addEventListener("mousedown", handleMouseDown);
 document.addEventListener("mousemove", handleMouseMove);
 document.addEventListener("mouseup", handleMouseUp);
 
+// Init app
 resizeGrid();
 pix = getPix();
-if (localStorage.length > 0) pix = orderPix(pix);
+if (localStorage.length) pix = orderPix(pix);
 renderPix(pix);
-
-function movePic(from, to) {
-	// [0,1,2,3,4,5]
-	//
-	// const newIndex = parseInt(newPic.dataset.index);
-	// const currentIndex = parseInt(currentPic.dataset.index);
-	// let nextIndex;
-	// if (moveCurrentTowardsNew)
-	// 	// move currentPic 1 cell towards newPic
-	// 	nextIndex = currentIndex + (currentIndex < newIndex ? 1 : -1);
-	// // move currentPic 1 cell away newPic
-	// else nextIndex = currentIndex + (currentIndex < newIndex ? -1 : 1);
-	// const nextPic = document.querySelector(`[data-index="${nextIndex}"]`);
-	// console.log(nextPic, dragged);
-	// if (nextPic === dragged) return;
-	// insertPic(currentPic, nextPic, false);
-	// // insert newPic in place of currentPic
-	// newPic.dataset.index = currentIndex;
-	// newPic.style.order = currentIndex;
-}
